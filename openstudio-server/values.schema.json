@@ -194,7 +194,7 @@
         "persistence"
       ],
       "title": "db",
-      "type": "object",
+      "type": "object"
     },
     "global": {
       "description": "Global values are values that can be accessed from any chart or subchart by exactly the same name.",
