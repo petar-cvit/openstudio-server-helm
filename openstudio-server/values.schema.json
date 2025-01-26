@@ -2,6 +2,26 @@
   "$schema": "http://json-schema.org/draft-07/schema#",
   "additionalProperties": false,
   "properties": {
+    "provider": {
+      "additionalProperties": false,
+      "description": "Set to google, aws or azure",
+      "properties": {
+        "name": {
+          "enum": [
+            "google",
+            "aws",
+            "azure"
+          ],
+          "title": "name",
+          "type": "string"
+        }
+      },
+      "required": [
+        "name"
+      ],
+      "title": "Provider",
+      "type": "object"
+    },
     "cluster": {
       "additionalProperties": false,
       "properties": {
@@ -174,7 +194,7 @@
         "persistence"
       ],
       "title": "db",
-      "type": "object"
+      "type": "object",
     },
     "global": {
       "description": "Global values are values that can be accessed from any chart or subchart by exactly the same name.",
@@ -665,23 +685,6 @@
         "storage"
       ],
       "title": "nfs_pvc",
-      "type": "object"
-    },
-    "provider": {
-      "additionalProperties": false,
-      "description": "Set to google, aws or azure",
-      "properties": {
-        "name": {
-          "default": "",
-          "required": [],
-          "title": "name",
-          "type": "string"
-        }
-      },
-      "required": [
-        "name"
-      ],
-      "title": "provider",
       "type": "object"
     },
     "redis": {
@@ -1444,6 +1447,9 @@
       "type": "object"
     }
   },
+  "order": [
+    "provider"
+  ],
   "required": [
     "provider",
     "cluster",
