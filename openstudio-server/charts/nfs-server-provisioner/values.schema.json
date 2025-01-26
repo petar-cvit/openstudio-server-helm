@@ -1,0 +1,395 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "additionalProperties": false,
+  "properties": {
+    "affinity": {
+      "additionalProperties": false,
+      "properties": {
+        "nodeAffinity": {
+          "additionalProperties": false,
+          "properties": {
+            "requiredDuringSchedulingIgnoredDuringExecution": {
+              "additionalProperties": false,
+              "properties": {
+                "nodeSelectorTerms": {
+                  "items": {
+                    "anyOf": [
+                      {
+                        "additionalProperties": false,
+                        "properties": {
+                          "matchExpressions": {
+                            "items": {
+                              "anyOf": [
+                                {
+                                  "additionalProperties": false,
+                                  "properties": {
+                                    "key": {
+                                      "default": "nodegroup",
+                                      "required": [],
+                                      "title": "key",
+                                      "type": "string"
+                                    },
+                                    "operator": {
+                                      "default": "In",
+                                      "required": [],
+                                      "title": "operator",
+                                      "type": "string"
+                                    },
+                                    "values": {
+                                      "items": {
+                                        "anyOf": [
+                                          {
+                                            "required": [],
+                                            "type": "string"
+                                          }
+                                        ],
+                                        "required": []
+                                      },
+                                      "required": [],
+                                      "title": "values",
+                                      "type": "array"
+                                    }
+                                  },
+                                  "required": [
+                                    "key",
+                                    "operator",
+                                    "values"
+                                  ],
+                                  "type": "object"
+                                }
+                              ],
+                              "required": []
+                            },
+                            "required": [],
+                            "title": "matchExpressions",
+                            "type": "array"
+                          }
+                        },
+                        "required": [
+                          "matchExpressions"
+                        ],
+                        "type": "object"
+                      }
+                    ],
+                    "required": []
+                  },
+                  "required": [],
+                  "title": "nodeSelectorTerms",
+                  "type": "array"
+                }
+              },
+              "required": [
+                "nodeSelectorTerms"
+              ],
+              "title": "requiredDuringSchedulingIgnoredDuringExecution",
+              "type": "object"
+            }
+          },
+          "required": [
+            "requiredDuringSchedulingIgnoredDuringExecution"
+          ],
+          "title": "nodeAffinity",
+          "type": "object"
+        }
+      },
+      "required": [
+        "nodeAffinity"
+      ],
+      "title": "affinity",
+      "type": "object"
+    },
+    "extraArgs": {
+      "additionalProperties": false,
+      "description": "For a list of available arguments\nPlease see https://github.com/kubernetes-incubator/external-storage/blob/master/nfs/docs/deployment.md#arguments",
+      "required": [],
+      "title": "extraArgs",
+      "type": "object"
+    },
+    "global": {
+      "description": "Global values are values that can be accessed from any chart or subchart by exactly the same name.",
+      "required": [],
+      "title": "global",
+      "type": "object"
+    },
+    "image": {
+      "additionalProperties": false,
+      "description": "imagePullSecrets:",
+      "properties": {
+        "pullPolicy": {
+          "default": "IfNotPresent",
+          "required": [],
+          "title": "pullPolicy",
+          "type": "string"
+        },
+        "repository": {
+          "default": "quay.io/kubernetes_incubator/nfs-provisioner",
+          "required": [],
+          "title": "repository",
+          "type": "string"
+        },
+        "tag": {
+          "default": "v2.3.0",
+          "required": [],
+          "title": "tag",
+          "type": "string"
+        }
+      },
+      "required": [
+        "repository",
+        "tag",
+        "pullPolicy"
+      ],
+      "title": "image",
+      "type": "object"
+    },
+    "nodeSelector": {
+      "additionalProperties": false,
+      "required": [],
+      "title": "nodeSelector",
+      "type": "object"
+    },
+    "persistence": {
+      "additionalProperties": false,
+      "properties": {
+        "accessModes": {
+          "items": {
+            "anyOf": [
+              {
+                "required": [],
+                "type": "string"
+              }
+            ],
+            "required": []
+          },
+          "required": [],
+          "title": "accessModes",
+          "type": "array"
+        },
+        "enabled": {
+          "default": false,
+          "required": [],
+          "title": "enabled",
+          "type": "boolean"
+        },
+        "name": {
+          "default": "nfs-pvc-data",
+          "required": [],
+          "title": "name",
+          "type": "string"
+        },
+        "size": {
+          "default": "1Gi",
+          "required": [],
+          "title": "size",
+          "type": "string"
+        }
+      },
+      "required": [
+        "enabled",
+        "name",
+        "accessModes",
+        "size"
+      ],
+      "title": "persistence",
+      "type": "object"
+    },
+    "rbac": {
+      "additionalProperties": false,
+      "description": "# For RBAC support:",
+      "properties": {
+        "create": {
+          "default": true,
+          "required": [],
+          "title": "create",
+          "type": "boolean"
+        },
+        "serviceAccountName": {
+          "default": "default",
+          "description": "# Ignored if rbac.create is true\n#",
+          "required": [],
+          "title": "serviceAccountName",
+          "type": "string"
+        }
+      },
+      "required": [
+        "create",
+        "serviceAccountName"
+      ],
+      "title": "rbac",
+      "type": "object"
+    },
+    "replicaCount": {
+      "default": 1,
+      "required": [],
+      "title": "replicaCount",
+      "type": "integer"
+    },
+    "resources": {
+      "additionalProperties": false,
+      "required": [],
+      "title": "resources",
+      "type": "object"
+    },
+    "service": {
+      "additionalProperties": false,
+      "properties": {
+        "externalIPs": {
+          "items": {
+            "required": []
+          },
+          "required": [],
+          "title": "externalIPs",
+          "type": "array"
+        },
+        "mountdPort": {
+          "default": 20048,
+          "required": [],
+          "title": "mountdPort",
+          "type": "integer"
+        },
+        "nfsPort": {
+          "default": 2049,
+          "required": [],
+          "title": "nfsPort",
+          "type": "integer"
+        },
+        "nlockmgrPort": {
+          "default": 32803,
+          "required": [],
+          "title": "nlockmgrPort",
+          "type": "integer"
+        },
+        "rpcbindPort": {
+          "default": 111,
+          "required": [],
+          "title": "rpcbindPort",
+          "type": "integer"
+        },
+        "rquotadPort": {
+          "default": 875,
+          "required": [],
+          "title": "rquotadPort",
+          "type": "integer"
+        },
+        "statdPort": {
+          "default": 662,
+          "required": [],
+          "title": "statdPort",
+          "type": "integer"
+        },
+        "type": {
+          "default": "ClusterIP",
+          "required": [],
+          "title": "type",
+          "type": "string"
+        }
+      },
+      "required": [
+        "type",
+        "nfsPort",
+        "nlockmgrPort",
+        "mountdPort",
+        "rquotadPort",
+        "rpcbindPort",
+        "statdPort",
+        "externalIPs"
+      ],
+      "title": "service",
+      "type": "object"
+    },
+    "storageClass": {
+      "additionalProperties": false,
+      "description": "# For creating the StorageClass automatically:",
+      "properties": {
+        "allowVolumeExpansion": {
+          "default": true,
+          "description": "set to null to prevent expansion",
+          "required": [],
+          "title": "allowVolumeExpansion",
+          "type": "boolean"
+        },
+        "create": {
+          "default": true,
+          "required": [],
+          "title": "create",
+          "type": "boolean"
+        },
+        "defaultClass": {
+          "default": false,
+          "description": "# Set StorageClass as the default StorageClass\n# Ignored if storageClass.create is false",
+          "required": [],
+          "title": "defaultClass",
+          "type": "boolean"
+        },
+        "mountOptions": {
+          "items": {
+            "anyOf": [
+              {
+                "required": [],
+                "type": "string"
+              }
+            ],
+            "required": []
+          },
+          "required": [],
+          "title": "mountOptions",
+          "type": "array"
+        },
+        "name": {
+          "default": "nfs",
+          "description": "# Set a StorageClass name\n# Ignored if storageClass.create is false",
+          "required": [],
+          "title": "name",
+          "type": "string"
+        },
+        "parameters": {
+          "additionalProperties": false,
+          "description": "# StorageClass parameters",
+          "required": [],
+          "title": "parameters",
+          "type": "object"
+        },
+        "reclaimPolicy": {
+          "default": "Delete",
+          "description": "# ReclaimPolicy field of the class, which can be either Delete or Retain",
+          "required": [],
+          "title": "reclaimPolicy",
+          "type": "string"
+        }
+      },
+      "required": [
+        "create",
+        "defaultClass",
+        "name",
+        "allowVolumeExpansion",
+        "parameters",
+        "mountOptions",
+        "reclaimPolicy"
+      ],
+      "title": "storageClass",
+      "type": "object"
+    },
+    "tolerations": {
+      "items": {
+        "required": []
+      },
+      "required": [],
+      "title": "tolerations",
+      "type": "array"
+    }
+  },
+  "required": [
+    "replicaCount",
+    "image",
+    "extraArgs",
+    "service",
+    "persistence",
+    "storageClass",
+    "rbac",
+    "resources",
+    "nodeSelector",
+    "tolerations",
+    "affinity"
+  ],
+  "type": "object"
+}

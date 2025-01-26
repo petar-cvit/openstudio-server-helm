@@ -1,0 +1,1467 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "additionalProperties": false,
+  "properties": {
+    "cluster": {
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "default": "openstudio-server-03",
+          "required": [],
+          "title": "name",
+          "type": "string"
+        }
+      },
+      "required": [
+        "name"
+      ],
+      "title": "cluster",
+      "type": "object"
+    },
+    "db": {
+      "additionalProperties": false,
+      "properties": {
+        "container": {
+          "additionalProperties": false,
+          "properties": {
+            "image": {
+              "default": "554977624503.dkr.ecr.us-west-2.amazonaws.com/ecr-public/docker/library/mongo:6.0.7",
+              "required": [],
+              "title": "image",
+              "type": "string"
+            },
+            "name": {
+              "default": "mongo-db",
+              "required": [],
+              "title": "name",
+              "type": "string"
+            },
+            "ports": {
+              "additionalProperties": false,
+              "properties": {
+                "db_port": {
+                  "default": 27017,
+                  "required": [],
+                  "title": "db_port",
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "db_port"
+              ],
+              "title": "ports",
+              "type": "object"
+            },
+            "resources": {
+              "additionalProperties": false,
+              "properties": {
+                "requests": {
+                  "additionalProperties": false,
+                  "properties": {
+                    "cpu": {
+                      "default": 4,
+                      "required": [],
+                      "title": "cpu",
+                      "type": "integer"
+                    },
+                    "memory": {
+                      "default": "12Gi",
+                      "required": [],
+                      "title": "memory",
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "cpu",
+                    "memory"
+                  ],
+                  "title": "requests",
+                  "type": "object"
+                }
+              },
+              "required": [
+                "requests"
+              ],
+              "title": "resources",
+              "type": "object"
+            }
+          },
+          "required": [
+            "name",
+            "image",
+            "resources",
+            "ports"
+          ],
+          "title": "container",
+          "type": "object"
+        },
+        "label": {
+          "default": "db",
+          "required": [],
+          "title": "label",
+          "type": "string"
+        },
+        "name": {
+          "default": "db",
+          "required": [],
+          "title": "name",
+          "type": "string"
+        },
+        "password": {
+          "default": "openstudio",
+          "required": [],
+          "title": "password",
+          "type": "string"
+        },
+        "persistence": {
+          "additionalProperties": false,
+          "properties": {
+            "accessModes": {
+              "items": {
+                "anyOf": [
+                  {
+                    "required": [],
+                    "type": "string"
+                  }
+                ],
+                "required": []
+              },
+              "required": [],
+              "title": "accessModes",
+              "type": "array"
+            },
+            "enabled": {
+              "default": true,
+              "required": [],
+              "title": "enabled",
+              "type": "boolean"
+            },
+            "size": {
+              "default": "200Gi",
+              "required": [],
+              "title": "size",
+              "type": "string"
+            },
+            "storageClass": {
+              "default": "ssd",
+              "required": [],
+              "title": "storageClass",
+              "type": "string"
+            }
+          },
+          "required": [
+            "enabled",
+            "storageClass",
+            "size",
+            "accessModes"
+          ],
+          "title": "persistence",
+          "type": "object"
+        },
+        "username": {
+          "default": "openstudio",
+          "required": [],
+          "title": "username",
+          "type": "string"
+        }
+      },
+      "required": [
+        "name",
+        "label",
+        "username",
+        "password",
+        "container",
+        "persistence"
+      ],
+      "title": "db",
+      "type": "object"
+    },
+    "global": {
+      "description": "Global values are values that can be accessed from any chart or subchart by exactly the same name.",
+      "required": [],
+      "title": "global",
+      "type": "object"
+    },
+    "load_balancer": {
+      "additionalProperties": false,
+      "properties": {
+        "externalTrafficPolicy": {
+          "default": "Local",
+          "required": [],
+          "title": "externalTrafficPolicy",
+          "type": "string"
+        },
+        "label": {
+          "default": "web",
+          "required": [],
+          "title": "label",
+          "type": "string"
+        },
+        "name": {
+          "default": "ingress-load-balancer",
+          "required": [],
+          "title": "name",
+          "type": "string"
+        },
+        "ports": {
+          "additionalProperties": false,
+          "properties": {
+            "http_name": {
+              "default": "http",
+              "required": [],
+              "title": "http_name",
+              "type": "string"
+            },
+            "http_port": {
+              "default": 80,
+              "required": [],
+              "title": "http_port",
+              "type": "integer"
+            },
+            "http_protocol": {
+              "default": "TCP",
+              "required": [],
+              "title": "http_protocol",
+              "type": "string"
+            },
+            "https_name": {
+              "default": "https",
+              "required": [],
+              "title": "https_name",
+              "type": "string"
+            },
+            "https_port": {
+              "default": 443,
+              "required": [],
+              "title": "https_port",
+              "type": "integer"
+            },
+            "https_protocol": {
+              "default": "TCP",
+              "required": [],
+              "title": "https_protocol",
+              "type": "string"
+            }
+          },
+          "required": [
+            "http_name",
+            "http_port",
+            "http_protocol",
+            "https_name",
+            "https_port",
+            "https_protocol"
+          ],
+          "title": "ports",
+          "type": "object"
+        }
+      },
+      "required": [
+        "name",
+        "externalTrafficPolicy",
+        "label",
+        "ports"
+      ],
+      "title": "load_balancer",
+      "type": "object"
+    },
+    "nfs": {
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "default": "nfs",
+          "required": [],
+          "title": "name",
+          "type": "string"
+        }
+      },
+      "required": [
+        "name"
+      ],
+      "title": "nfs",
+      "type": "object"
+    },
+    "nfs-server-provisioner": {
+      "description": "nfs-server-provisioner is an out-of-tree dynamic provisioner for Kubernetes. You can use it to quickly \u0026 easily deploy shared storage that works almost anywhere.",
+      "properties": {
+        "affinity": {
+          "additionalProperties": false,
+          "properties": {
+            "nodeAffinity": {
+              "additionalProperties": false,
+              "properties": {
+                "requiredDuringSchedulingIgnoredDuringExecution": {
+                  "additionalProperties": false,
+                  "properties": {
+                    "nodeSelectorTerms": {
+                      "items": {
+                        "anyOf": [
+                          {
+                            "additionalProperties": false,
+                            "properties": {
+                              "matchExpressions": {
+                                "items": {
+                                  "anyOf": [
+                                    {
+                                      "additionalProperties": false,
+                                      "properties": {
+                                        "key": {
+                                          "default": "nodegroup",
+                                          "required": [],
+                                          "title": "key",
+                                          "type": "string"
+                                        },
+                                        "operator": {
+                                          "default": "In",
+                                          "required": [],
+                                          "title": "operator",
+                                          "type": "string"
+                                        },
+                                        "values": {
+                                          "items": {
+                                            "anyOf": [
+                                              {
+                                                "required": [],
+                                                "type": "string"
+                                              }
+                                            ],
+                                            "required": []
+                                          },
+                                          "required": [],
+                                          "title": "values",
+                                          "type": "array"
+                                        }
+                                      },
+                                      "required": [],
+                                      "type": "object"
+                                    }
+                                  ],
+                                  "required": []
+                                },
+                                "required": [],
+                                "title": "matchExpressions",
+                                "type": "array"
+                              }
+                            },
+                            "required": [],
+                            "type": "object"
+                          }
+                        ],
+                        "required": []
+                      },
+                      "required": [],
+                      "title": "nodeSelectorTerms",
+                      "type": "array"
+                    }
+                  },
+                  "required": [],
+                  "title": "requiredDuringSchedulingIgnoredDuringExecution",
+                  "type": "object"
+                }
+              },
+              "required": [],
+              "title": "nodeAffinity",
+              "type": "object"
+            }
+          },
+          "required": [],
+          "title": "affinity",
+          "type": "object"
+        },
+        "extraArgs": {
+          "additionalProperties": false,
+          "description": "For a list of available arguments\nPlease see https://github.com/kubernetes-incubator/external-storage/blob/master/nfs/docs/deployment.md#arguments",
+          "required": [],
+          "title": "extraArgs",
+          "type": "object"
+        },
+        "global": {
+          "description": "Global values are values that can be accessed from any chart or subchart by exactly the same name.",
+          "required": [],
+          "title": "global",
+          "type": "object"
+        },
+        "image": {
+          "additionalProperties": false,
+          "description": "imagePullSecrets:",
+          "properties": {
+            "pullPolicy": {
+              "default": "IfNotPresent",
+              "required": [],
+              "title": "pullPolicy",
+              "type": "string"
+            },
+            "repository": {
+              "default": "quay.io/kubernetes_incubator/nfs-provisioner",
+              "required": [],
+              "title": "repository",
+              "type": "string"
+            },
+            "tag": {
+              "default": "v2.3.0",
+              "required": [],
+              "title": "tag",
+              "type": "string"
+            }
+          },
+          "required": [],
+          "title": "image",
+          "type": "object"
+        },
+        "nodeSelector": {
+          "additionalProperties": false,
+          "required": [],
+          "title": "nodeSelector",
+          "type": "object"
+        },
+        "persistence": {
+          "additionalProperties": false,
+          "properties": {
+            "accessModes": {
+              "items": {
+                "anyOf": [
+                  {
+                    "required": [],
+                    "type": "string"
+                  }
+                ],
+                "required": []
+              },
+              "required": [],
+              "title": "accessModes",
+              "type": "array"
+            },
+            "enabled": {
+              "default": false,
+              "required": [],
+              "title": "enabled",
+              "type": "boolean"
+            },
+            "name": {
+              "default": "nfs-pvc-data",
+              "required": [],
+              "title": "name",
+              "type": "string"
+            },
+            "size": {
+              "default": "1Gi",
+              "required": [],
+              "title": "size",
+              "type": "string"
+            }
+          },
+          "required": [],
+          "title": "persistence",
+          "type": "object"
+        },
+        "rbac": {
+          "additionalProperties": false,
+          "description": "# For RBAC support:",
+          "properties": {
+            "create": {
+              "default": true,
+              "required": [],
+              "title": "create",
+              "type": "boolean"
+            },
+            "serviceAccountName": {
+              "default": "default",
+              "description": "# Ignored if rbac.create is true\n#",
+              "required": [],
+              "title": "serviceAccountName",
+              "type": "string"
+            }
+          },
+          "required": [],
+          "title": "rbac",
+          "type": "object"
+        },
+        "replicaCount": {
+          "default": 1,
+          "required": [],
+          "title": "replicaCount",
+          "type": "integer"
+        },
+        "resources": {
+          "additionalProperties": false,
+          "required": [],
+          "title": "resources",
+          "type": "object"
+        },
+        "service": {
+          "additionalProperties": false,
+          "properties": {
+            "externalIPs": {
+              "items": {
+                "required": []
+              },
+              "required": [],
+              "title": "externalIPs",
+              "type": "array"
+            },
+            "mountdPort": {
+              "default": 20048,
+              "required": [],
+              "title": "mountdPort",
+              "type": "integer"
+            },
+            "nfsPort": {
+              "default": 2049,
+              "required": [],
+              "title": "nfsPort",
+              "type": "integer"
+            },
+            "nlockmgrPort": {
+              "default": 32803,
+              "required": [],
+              "title": "nlockmgrPort",
+              "type": "integer"
+            },
+            "rpcbindPort": {
+              "default": 111,
+              "required": [],
+              "title": "rpcbindPort",
+              "type": "integer"
+            },
+            "rquotadPort": {
+              "default": 875,
+              "required": [],
+              "title": "rquotadPort",
+              "type": "integer"
+            },
+            "statdPort": {
+              "default": 662,
+              "required": [],
+              "title": "statdPort",
+              "type": "integer"
+            },
+            "type": {
+              "default": "ClusterIP",
+              "required": [],
+              "title": "type",
+              "type": "string"
+            }
+          },
+          "required": [],
+          "title": "service",
+          "type": "object"
+        },
+        "storageClass": {
+          "additionalProperties": false,
+          "description": "# For creating the StorageClass automatically:",
+          "properties": {
+            "allowVolumeExpansion": {
+              "default": true,
+              "description": "set to null to prevent expansion",
+              "required": [],
+              "title": "allowVolumeExpansion",
+              "type": "boolean"
+            },
+            "create": {
+              "default": true,
+              "required": [],
+              "title": "create",
+              "type": "boolean"
+            },
+            "defaultClass": {
+              "default": false,
+              "description": "# Set StorageClass as the default StorageClass\n# Ignored if storageClass.create is false",
+              "required": [],
+              "title": "defaultClass",
+              "type": "boolean"
+            },
+            "mountOptions": {
+              "items": {
+                "anyOf": [
+                  {
+                    "required": [],
+                    "type": "string"
+                  }
+                ],
+                "required": []
+              },
+              "required": [],
+              "title": "mountOptions",
+              "type": "array"
+            },
+            "name": {
+              "default": "nfs",
+              "description": "# Set a StorageClass name\n# Ignored if storageClass.create is false",
+              "required": [],
+              "title": "name",
+              "type": "string"
+            },
+            "parameters": {
+              "additionalProperties": false,
+              "description": "# StorageClass parameters",
+              "required": [],
+              "title": "parameters",
+              "type": "object"
+            },
+            "reclaimPolicy": {
+              "default": "Delete",
+              "description": "# ReclaimPolicy field of the class, which can be either Delete or Retain",
+              "required": [],
+              "title": "reclaimPolicy",
+              "type": "string"
+            }
+          },
+          "required": [],
+          "title": "storageClass",
+          "type": "object"
+        },
+        "tolerations": {
+          "items": {
+            "required": []
+          },
+          "required": [],
+          "title": "tolerations",
+          "type": "array"
+        }
+      },
+      "required": [],
+      "title": "nfs-server-provisioner",
+      "type": "object"
+    },
+    "nfs_pvc": {
+      "additionalProperties": false,
+      "properties": {
+        "accessModes": {
+          "items": {
+            "anyOf": [
+              {
+                "required": [],
+                "type": "string"
+              }
+            ],
+            "required": []
+          },
+          "required": [],
+          "title": "accessModes",
+          "type": "array"
+        },
+        "name": {
+          "default": "nfs-pvc",
+          "required": [],
+          "title": "name",
+          "type": "string"
+        },
+        "storage": {
+          "default": "500Gi",
+          "required": [],
+          "title": "storage",
+          "type": "string"
+        },
+        "storageClass": {
+          "default": "ssd",
+          "required": [],
+          "title": "storageClass",
+          "type": "string"
+        }
+      },
+      "required": [
+        "name",
+        "accessModes",
+        "storageClass",
+        "storage"
+      ],
+      "title": "nfs_pvc",
+      "type": "object"
+    },
+    "provider": {
+      "additionalProperties": false,
+      "description": "Set to google, aws or azure",
+      "properties": {
+        "name": {
+          "default": "",
+          "required": [],
+          "title": "name",
+          "type": "string"
+        }
+      },
+      "required": [
+        "name"
+      ],
+      "title": "provider",
+      "type": "object"
+    },
+    "redis": {
+      "additionalProperties": false,
+      "properties": {
+        "container": {
+          "additionalProperties": false,
+          "properties": {
+            "image": {
+              "default": "554977624503.dkr.ecr.us-west-2.amazonaws.com/ecr-public/docker/library/redis:6.0.9",
+              "required": [],
+              "title": "image",
+              "type": "string"
+            },
+            "name": {
+              "default": "redis",
+              "required": [],
+              "title": "name",
+              "type": "string"
+            },
+            "port": {
+              "default": 6379,
+              "required": [],
+              "title": "port",
+              "type": "integer"
+            },
+            "resources": {
+              "additionalProperties": false,
+              "properties": {
+                "requests": {
+                  "additionalProperties": false,
+                  "properties": {
+                    "cpu": {
+                      "default": 3,
+                      "required": [],
+                      "title": "cpu",
+                      "type": "integer"
+                    },
+                    "memory": {
+                      "default": "4Gi",
+                      "required": [],
+                      "title": "memory",
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "cpu",
+                    "memory"
+                  ],
+                  "title": "requests",
+                  "type": "object"
+                }
+              },
+              "required": [
+                "requests"
+              ],
+              "title": "resources",
+              "type": "object"
+            }
+          },
+          "required": [
+            "name",
+            "image",
+            "resources",
+            "port"
+          ],
+          "title": "container",
+          "type": "object"
+        },
+        "label": {
+          "default": "redis",
+          "required": [],
+          "title": "label",
+          "type": "string"
+        },
+        "maxclients": {
+          "default": 40000,
+          "required": [],
+          "title": "maxclients",
+          "type": "integer"
+        },
+        "name": {
+          "default": "redis",
+          "required": [],
+          "title": "name",
+          "type": "string"
+        },
+        "password": {
+          "default": "openstudio",
+          "required": [],
+          "title": "password",
+          "type": "string"
+        },
+        "persistence": {
+          "additionalProperties": false,
+          "properties": {
+            "accessModes": {
+              "items": {
+                "anyOf": [
+                  {
+                    "required": [],
+                    "type": "string"
+                  }
+                ],
+                "required": []
+              },
+              "required": [],
+              "title": "accessModes",
+              "type": "array"
+            },
+            "enabled": {
+              "default": true,
+              "required": [],
+              "title": "enabled",
+              "type": "boolean"
+            },
+            "size": {
+              "default": "200Gi",
+              "required": [],
+              "title": "size",
+              "type": "string"
+            },
+            "storageClass": {
+              "default": "ssd",
+              "required": [],
+              "title": "storageClass",
+              "type": "string"
+            }
+          },
+          "required": [
+            "enabled",
+            "storageClass",
+            "size",
+            "accessModes"
+          ],
+          "title": "persistence",
+          "type": "object"
+        }
+      },
+      "required": [
+        "name",
+        "label",
+        "password",
+        "maxclients",
+        "container",
+        "persistence"
+      ],
+      "title": "redis",
+      "type": "object"
+    },
+    "redis_svc": {
+      "additionalProperties": false,
+      "properties": {
+        "label": {
+          "default": "redis",
+          "required": [],
+          "title": "label",
+          "type": "string"
+        },
+        "name": {
+          "default": "queue",
+          "required": [],
+          "title": "name",
+          "type": "string"
+        },
+        "port": {
+          "default": 6379,
+          "required": [],
+          "title": "port",
+          "type": "integer"
+        },
+        "url": {
+          "default": "redis://:openstudio@queue:6379",
+          "required": [],
+          "title": "url",
+          "type": "string"
+        }
+      },
+      "required": [
+        "name",
+        "label",
+        "port",
+        "url"
+      ],
+      "title": "redis_svc",
+      "type": "object"
+    },
+    "rserve": {
+      "additionalProperties": false,
+      "properties": {
+        "container": {
+          "additionalProperties": false,
+          "properties": {
+            "image": {
+              "default": "554977624503.dkr.ecr.us-west-2.amazonaws.com/openstudio-rserve:3.6.1-3",
+              "required": [],
+              "title": "image",
+              "type": "string"
+            },
+            "name": {
+              "default": "rserve",
+              "required": [],
+              "title": "name",
+              "type": "string"
+            },
+            "resources": {
+              "additionalProperties": false,
+              "properties": {
+                "requests": {
+                  "additionalProperties": false,
+                  "properties": {
+                    "cpu": {
+                      "default": 1,
+                      "required": [],
+                      "title": "cpu",
+                      "type": "integer"
+                    },
+                    "memory": {
+                      "default": "1Gi",
+                      "required": [],
+                      "title": "memory",
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "cpu",
+                    "memory"
+                  ],
+                  "title": "requests",
+                  "type": "object"
+                }
+              },
+              "required": [
+                "requests"
+              ],
+              "title": "resources",
+              "type": "object"
+            }
+          },
+          "required": [
+            "name",
+            "image",
+            "resources"
+          ],
+          "title": "container",
+          "type": "object"
+        },
+        "label": {
+          "default": "rserve",
+          "required": [],
+          "title": "label",
+          "type": "string"
+        },
+        "name": {
+          "default": "rserve",
+          "required": [],
+          "title": "name",
+          "type": "string"
+        },
+        "number_of_workers": {
+          "default": "1",
+          "required": [],
+          "title": "number_of_workers",
+          "type": "string"
+        }
+      },
+      "required": [
+        "name",
+        "label",
+        "number_of_workers",
+        "container"
+      ],
+      "title": "rserve",
+      "type": "object"
+    },
+    "rserve_svc": {
+      "additionalProperties": false,
+      "properties": {
+        "label": {
+          "default": "rserve",
+          "required": [],
+          "title": "label",
+          "type": "string"
+        },
+        "name": {
+          "default": "rserve",
+          "required": [],
+          "title": "name",
+          "type": "string"
+        },
+        "port": {
+          "default": 6311,
+          "required": [],
+          "title": "port",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "name",
+        "label",
+        "port"
+      ],
+      "title": "rserve_svc",
+      "type": "object"
+    },
+    "web": {
+      "additionalProperties": false,
+      "properties": {
+        "container": {
+          "additionalProperties": false,
+          "properties": {
+            "image": {
+              "default": "554977624503.dkr.ecr.us-west-2.amazonaws.com/openstudio-server:3.6.1-3",
+              "required": [],
+              "title": "image",
+              "type": "string"
+            },
+            "name": {
+              "default": "web",
+              "required": [],
+              "title": "name",
+              "type": "string"
+            },
+            "port": {
+              "additionalProperties": false,
+              "properties": {
+                "http": {
+                  "default": 80,
+                  "required": [],
+                  "title": "http",
+                  "type": "integer"
+                },
+                "https": {
+                  "default": 443,
+                  "required": [],
+                  "title": "https",
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "http",
+                "https"
+              ],
+              "title": "port",
+              "type": "object"
+            },
+            "resources": {
+              "additionalProperties": false,
+              "properties": {
+                "limits": {
+                  "additionalProperties": false,
+                  "properties": {
+                    "cpu": {
+                      "default": 8,
+                      "required": [],
+                      "title": "cpu",
+                      "type": "integer"
+                    },
+                    "memory": {
+                      "default": "60Gi",
+                      "required": [],
+                      "title": "memory",
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "cpu",
+                    "memory"
+                  ],
+                  "title": "limits",
+                  "type": "object"
+                },
+                "requests": {
+                  "additionalProperties": false,
+                  "properties": {
+                    "cpu": {
+                      "default": 6,
+                      "required": [],
+                      "title": "cpu",
+                      "type": "integer"
+                    },
+                    "memory": {
+                      "default": "50Gi",
+                      "required": [],
+                      "title": "memory",
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "cpu",
+                    "memory"
+                  ],
+                  "title": "requests",
+                  "type": "object"
+                }
+              },
+              "required": [
+                "requests",
+                "limits"
+              ],
+              "title": "resources",
+              "type": "object"
+            }
+          },
+          "required": [
+            "name",
+            "image",
+            "resources",
+            "port"
+          ],
+          "title": "container",
+          "type": "object"
+        },
+        "label": {
+          "default": "web",
+          "required": [],
+          "title": "label",
+          "type": "string"
+        },
+        "name": {
+          "default": "web",
+          "required": [],
+          "title": "name",
+          "type": "string"
+        },
+        "passenger_memory_per_process": {
+          "default": 250,
+          "description": "passenger_max_request_queue_size: \"1600\"\nUse this formula (1024 * memory of web pod in Gi * 0.75) / memory per passenger process\npassenger_max_pool_size: \"21\"\nThis value is typically between 150 and 400, find this by ssh into web pod and doing `passenger-status`",
+          "required": [],
+          "title": "passenger_memory_per_process",
+          "type": "integer"
+        },
+        "secret_key_value": {
+          "default": "c4ab6d293e4bf52ee92e8dda6e16dc9b5448d0c5f7908ee40c66736d515f3c29142d905b283d73e5e9cef6b13cd8e38be6fd3b5e25d00f35b259923a86c7c473",
+          "required": [],
+          "title": "secret_key_value",
+          "type": "string"
+        }
+      },
+      "required": [
+        "name",
+        "label",
+        "secret_key_value",
+        "passenger_memory_per_process",
+        "container"
+      ],
+      "title": "web",
+      "type": "object"
+    },
+    "web_background": {
+      "additionalProperties": false,
+      "properties": {
+        "container": {
+          "additionalProperties": false,
+          "properties": {
+            "image": {
+              "default": "554977624503.dkr.ecr.us-west-2.amazonaws.com/openstudio-server:3.6.1-3",
+              "required": [],
+              "title": "image",
+              "type": "string"
+            },
+            "name": {
+              "default": "web-background",
+              "required": [],
+              "title": "name",
+              "type": "string"
+            },
+            "resources": {
+              "additionalProperties": false,
+              "properties": {
+                "requests": {
+                  "additionalProperties": false,
+                  "properties": {
+                    "cpu": {
+                      "default": 2,
+                      "required": [],
+                      "title": "cpu",
+                      "type": "integer"
+                    },
+                    "memory": {
+                      "default": "4Gi",
+                      "required": [],
+                      "title": "memory",
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "cpu",
+                    "memory"
+                  ],
+                  "title": "requests",
+                  "type": "object"
+                }
+              },
+              "required": [
+                "requests"
+              ],
+              "title": "resources",
+              "type": "object"
+            }
+          },
+          "required": [
+            "name",
+            "image",
+            "resources"
+          ],
+          "title": "container",
+          "type": "object"
+        },
+        "label": {
+          "default": "web-background",
+          "required": [],
+          "title": "label",
+          "type": "string"
+        },
+        "name": {
+          "default": "web-background",
+          "required": [],
+          "title": "name",
+          "type": "string"
+        },
+        "replicas": {
+          "default": 1,
+          "required": [],
+          "title": "replicas",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "name",
+        "label",
+        "replicas",
+        "container"
+      ],
+      "title": "web_background",
+      "type": "object"
+    },
+    "web_hpa": {
+      "additionalProperties": false,
+      "description": "For this to work and have more than 1 web pod we'll need to implement\na distributed file locking scheme such a https://github.com/antirez/redlock-rbs\nas even with using NFS via sync it cannot guarantee file locking using multiple clients",
+      "properties": {
+        "maxReplicas": {
+          "default": 1,
+          "required": [],
+          "title": "maxReplicas",
+          "type": "integer"
+        },
+        "minReplicas": {
+          "default": 1,
+          "required": [],
+          "title": "minReplicas",
+          "type": "integer"
+        },
+        "name": {
+          "default": "web",
+          "required": [],
+          "title": "name",
+          "type": "string"
+        },
+        "targetCPUUtilizationPercentage": {
+          "default": 50,
+          "required": [],
+          "title": "targetCPUUtilizationPercentage",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "name",
+        "minReplicas",
+        "maxReplicas",
+        "targetCPUUtilizationPercentage"
+      ],
+      "title": "web_hpa",
+      "type": "object"
+    },
+    "web_svc": {
+      "additionalProperties": false,
+      "properties": {
+        "label": {
+          "default": "web",
+          "required": [],
+          "title": "label",
+          "type": "string"
+        },
+        "name": {
+          "default": "web",
+          "required": [],
+          "title": "name",
+          "type": "string"
+        },
+        "ports": {
+          "additionalProperties": false,
+          "properties": {
+            "http": {
+              "default": 80,
+              "required": [],
+              "title": "http",
+              "type": "integer"
+            },
+            "https": {
+              "default": 443,
+              "required": [],
+              "title": "https",
+              "type": "integer"
+            }
+          },
+          "required": [
+            "http",
+            "https"
+          ],
+          "title": "ports",
+          "type": "object"
+        }
+      },
+      "required": [
+        "name",
+        "label",
+        "ports"
+      ],
+      "title": "web_svc",
+      "type": "object"
+    },
+    "worker": {
+      "additionalProperties": false,
+      "properties": {
+        "container": {
+          "additionalProperties": false,
+          "properties": {
+            "image": {
+              "default": "554977624503.dkr.ecr.us-west-2.amazonaws.com/openstudio-server:3.6.1-3",
+              "required": [],
+              "title": "image",
+              "type": "string"
+            },
+            "name": {
+              "default": "worker",
+              "required": [],
+              "title": "name",
+              "type": "string"
+            },
+            "resources": {
+              "additionalProperties": false,
+              "properties": {
+                "requests": {
+                  "additionalProperties": false,
+                  "properties": {
+                    "cpu": {
+                      "default": "500m",
+                      "required": [],
+                      "title": "cpu",
+                      "type": "string"
+                    },
+                    "memory": {
+                      "default": "1Gi",
+                      "required": [],
+                      "title": "memory",
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "cpu",
+                    "memory"
+                  ],
+                  "title": "requests",
+                  "type": "object"
+                }
+              },
+              "required": [
+                "requests"
+              ],
+              "title": "resources",
+              "type": "object"
+            },
+            "terminationGracePeriodSeconds": {
+              "default": 180,
+              "required": [],
+              "title": "terminationGracePeriodSeconds",
+              "type": "integer"
+            }
+          },
+          "required": [
+            "name",
+            "image",
+            "resources",
+            "terminationGracePeriodSeconds"
+          ],
+          "title": "container",
+          "type": "object"
+        },
+        "label": {
+          "default": "worker",
+          "required": [],
+          "title": "label",
+          "type": "string"
+        },
+        "name": {
+          "default": "worker",
+          "required": [],
+          "title": "name",
+          "type": "string"
+        }
+      },
+      "required": [
+        "name",
+        "label",
+        "container"
+      ],
+      "title": "worker",
+      "type": "object"
+    },
+    "worker_hpa": {
+      "additionalProperties": false,
+      "properties": {
+        "maxReplicas": {
+          "default": 6600,
+          "required": [],
+          "title": "maxReplicas",
+          "type": "integer"
+        },
+        "minReplicas": {
+          "default": 2,
+          "required": [],
+          "title": "minReplicas",
+          "type": "integer"
+        },
+        "name": {
+          "default": "worker",
+          "required": [],
+          "title": "name",
+          "type": "string"
+        },
+        "scalePolicyValue": {
+          "default": 950,
+          "required": [],
+          "title": "scalePolicyValue",
+          "type": "integer"
+        },
+        "stabilizationWindowSeconds": {
+          "default": 300,
+          "required": [],
+          "title": "stabilizationWindowSeconds",
+          "type": "integer"
+        },
+        "targetCPUUtilizationPercentage": {
+          "default": 10,
+          "required": [],
+          "title": "targetCPUUtilizationPercentage",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "name",
+        "minReplicas",
+        "maxReplicas",
+        "targetCPUUtilizationPercentage",
+        "stabilizationWindowSeconds",
+        "scalePolicyValue"
+      ],
+      "title": "worker_hpa",
+      "type": "object"
+    }
+  },
+  "required": [
+    "provider",
+    "cluster",
+    "nfs-server-provisioner",
+    "db",
+    "load_balancer",
+    "nfs",
+    "nfs_pvc",
+    "redis",
+    "redis_svc",
+    "rserve",
+    "rserve_svc",
+    "web_background",
+    "web",
+    "web_hpa",
+    "web_svc",
+    "worker",
+    "worker_hpa"
+  ],
+  "type": "object"
+}
