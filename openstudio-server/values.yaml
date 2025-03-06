@@ -13,7 +13,7 @@ cluster:
 nfs-server-provisioner:
   persistence:
     enabled: true
-    storageClass: "ssd"
+#    storageClass: "ssd"
     size: 550Gi
   storageClass:
     allowVolumeExpansion: false
@@ -60,13 +60,14 @@ nfs_pvc:
   name: "nfs-pvc"
   accessModes:
     - "ReadWriteMany"
-  storage_class: "nfs"
+  storageClass: "ssd"
   storage: "500Gi"
 
 redis:
   name: "redis"
   label: "redis"
   password: "openstudio"
+  maxclients: 40000
   container:
     name: "redis"
     image: "redis:6.0.9"
@@ -133,6 +134,9 @@ web:
       requests:
         cpu: 1
         memory: "2Gi"
+      limits:
+        cpu: 1
+        memory: "2Gi"
     port:
       http: 80
       https: 443
@@ -168,6 +172,7 @@ worker:
 worker_hpa:
   name: "worker"
   minReplicas: 2
-  maxReplicas: 20
-  targetCPUUtilizationPercentage: 12
-  stabilizationWindowSeconds: 3600
+  maxReplicas: 6600
+  targetCPUUtilizationPercentage: 10
+  stabilizationWindowSeconds: 300
+  scalePolicyValue: 950
