@@ -19,7 +19,7 @@
       "required": [
         "name"
       ],
-      "title": "Provider",
+      "title": "provider",
       "type": "object"
     },
     "cluster": {
