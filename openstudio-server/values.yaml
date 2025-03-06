@@ -8,7 +8,7 @@ provider:
   name: ""
 
 cluster:
-  name: "openstudio-server-03"
+  name: "openstudio-server"
 
 nfs-server-provisioner:
   persistence:
@@ -27,11 +27,11 @@ db:
   password: "openstudio"
   container:
     name: "mongo-db"
-    image: "554977624503.dkr.ecr.us-west-2.amazonaws.com/ecr-public/docker/library/mongo:6.0.7"
+    image: "mongo:6.0.7"
     resources:
       requests:
-        cpu: 4
-        memory: "12Gi"
+        cpu: 1
+        memory: "4Gi"
     ports:
       db_port: 27017
   persistence:
@@ -60,22 +60,20 @@ nfs_pvc:
   name: "nfs-pvc"
   accessModes:
     - "ReadWriteMany"
-  storageClass: "ssd"
+  storage_class: "nfs"
   storage: "500Gi"
-
 
 redis:
   name: "redis"
   label: "redis"
   password: "openstudio"
-  maxclients: 40000
   container:
     name: "redis"
-    image: "554977624503.dkr.ecr.us-west-2.amazonaws.com/ecr-public/docker/library/redis:6.0.9"
+    image: "redis:6.0.9"
     resources:
       requests:
-        cpu: 3
-        memory: "4Gi"
+        cpu: 0.25
+        memory: "1Gi"
     port: 6379
   persistence:
     enabled: true
@@ -96,11 +94,11 @@ rserve:
   number_of_workers: "1"
   container:
     name: "rserve"
-    image: "554977624503.dkr.ecr.us-west-2.amazonaws.com/openstudio-rserve:3.6.1-3"
+    image: "nrel/openstudio-rserve:3.8.0-1"
     resources:
       requests:
         cpu: 1
-        memory: "1Gi"
+        memory: "2Gi"
 
 rserve_svc:
   name: "rserve"
@@ -112,12 +110,12 @@ web_background:
   label: "web-background"
   replicas: 1
   container:
-    name: "web-background" 
-    image: "554977624503.dkr.ecr.us-west-2.amazonaws.com/openstudio-server:3.6.1-3"
+    name: "web-background"
+    image: "nrel/openstudio-server:3.8.0-1"
     resources:
       requests:
-        cpu: 2
-        memory: "4Gi"
+        cpu: 0.25
+        memory: "512Mi"
 
 web:
   name: "web"
@@ -130,17 +128,14 @@ web:
   passenger_memory_per_process: 250
   container:
     name: "web"
-    image: "554977624503.dkr.ecr.us-west-2.amazonaws.com/openstudio-server:3.6.1-3"
+    image: "nrel/openstudio-server:3.8.0-1"
     resources:
       requests:
-        cpu: 6
-        memory: "50Gi"
-      limits:
-        cpu: 8
-        memory: "60Gi"
+        cpu: 1
+        memory: "2Gi"
     port:
-     http: 80
-     https: 443
+      http: 80
+      https: 443
 
 # For this to work and have more than 1 web pod we'll need to implement
 # a distributed file locking scheme such a https://github.com/antirez/redlock-rbs
@@ -163,17 +158,16 @@ worker:
   label: "worker"
   container:
     name: "worker"
-    image: "554977624503.dkr.ecr.us-west-2.amazonaws.com/openstudio-server:3.6.1-3"
+    image: "nrel/openstudio-server:3.8.0-1"
     resources:
       requests:
-        cpu: 500m
-        memory: "1Gi"
-    terminationGracePeriodSeconds: 180
+        cpu: 700m
+        memory: "900Mi"
+    terminationGracePeriodSeconds: 5200
 
 worker_hpa:
   name: "worker"
   minReplicas: 2
-  maxReplicas: 6600
-  targetCPUUtilizationPercentage: 10
-  stabilizationWindowSeconds: 300
-  scalePolicyValue: 950
+  maxReplicas: 20
+  targetCPUUtilizationPercentage: 12
+  stabilizationWindowSeconds: 3600
