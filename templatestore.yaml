@@ -1,0 +1,25 @@
+apiVersion: cyclops-ui.com/v1alpha1
+kind: TemplateStore
+metadata:
+  annotations:
+    cyclops-ui.com/icon: https://github.com/cyclops-ui/cyclops/blob/main/cyclops-ui/src/static/img/default-template-icon.png?raw=true
+  name: demo
+  namespace: cyclops
+spec:
+  path: demo
+  repo: https://github.com/cyclops-ui/templates
+  sourceType: git
+  version: main
+---
+apiVersion: cyclops-ui.com/v1alpha1
+kind: TemplateStore
+metadata:
+  annotations:
+    cyclops-ui.com/icon: https://avatars.githubusercontent.com/u/1906800?s=200&v=4
+  name: open-studio
+  namespace: cyclops
+spec:
+  path: openstudio-server
+  repo: https://github.com/petar-cvit/openstudio-server-helm
+  sourceType: git
+  version: 179d_spot_instance
